@@ -5,6 +5,7 @@
 4. $ cmake ..
 5. $ make
 6. $ ./RogueLike
+
 ## Control
-1. Arrows for movement
-2. Space skip step
+1. Arrows - movement
+2. Space - skip step
