@@ -9,3 +9,4 @@
 ## Control
 1. Arrows - movement
 2. Space - skip step
+3. WASD - cast fireball
