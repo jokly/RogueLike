@@ -15,5 +15,5 @@ private:
     sf::RenderWindow window;
     Map map;
     std::vector<std::shared_ptr<GameObject>> objects;
-    std::string getInfoString(const std::shared_ptr<GameObject> gameObject);
+    std::string getInfoString(GameObject* gameObject);
 };

@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "Config.hpp"
+#include "Knight.hpp"
 #include <thread>
 #include <chrono>
 
@@ -9,7 +10,7 @@ Game::Game(const sf::VideoMode& videoMode, const std::string& windowName, const 
     window.create(videoMode, windowName, sf::Style::Close); 
 }
 
-std::string Game::getInfoString(const std::shared_ptr<GameObject> gameObject) {
+std::string Game::getInfoString(GameObject* gameObject) {
     return "Health: " + std::to_string(gameObject->getHealth()) + " | " +
         "Damage: " + std::to_string(gameObject->getDamage());
 }
@@ -20,7 +21,7 @@ WindowState Game::startGame() {
     auto mapVec = map.getMap();
     //player in [0]
     auto objects = map.getObjects();
-    auto player = objects[0];
+    Knight* player = dynamic_cast<Knight*>(objects[0].get());
     auto princess = map.getPrincess();
 
     auto windowSize = window.getSize();
@@ -78,6 +79,20 @@ WindowState Game::startGame() {
             else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
                 isMove = true;
             }
+            else if (event.type == sf::Event::KeyReleased) {
+                if (event.key.code == sf::Keyboard::W) {
+                    player->castFireball(objects, mapVec, 0, -1);
+                }
+                else if (event.key.code == sf::Keyboard::S) {
+                    player->castFireball(objects, mapVec, 0, 1);
+                }
+                else if (event.key.code == sf::Keyboard::A) {
+                    player->castFireball(objects, mapVec, -1, 0);
+                }
+                else if (event.key.code == sf::Keyboard::D) {
+                    player->castFireball(objects, mapVec, 1, 0);
+                }
+            }
 
             if (isMove) {
                 player->move(offset, objects, mapVec);
@@ -87,15 +102,6 @@ WindowState Game::startGame() {
                     objects[i]->move(playerPos, objects, mapVec);
                 }
                 
-                int i = 0;
-                while (i < objects.size()) {
-                    if (objects[i]->getHealth() <= 0) {
-                        objects.erase(objects.begin() + i);
-                        continue;
-                    }
-                    ++i;
-                }
-
                 healthText.setString(getInfoString(player));
                 
                 if (player->getHealth() <= 0) {
@@ -106,6 +112,15 @@ WindowState Game::startGame() {
                     gameState = GameState::Win;
                     endText.setString("Win!!!");
                 }
+            }
+
+            int i = 0;
+            while (i < objects.size()) {
+                if (objects[i]->getHealth() <= 0) {
+                    objects.erase(objects.begin() + i);
+                    continue;
+                }
+                ++i;
             }
         }
 

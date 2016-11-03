@@ -28,6 +28,13 @@ void Knight::heal(int healSize) {
     health = health > maxHealth ? maxHealth : health;
 }
 
+void Knight::castFireball(std::vector<std::shared_ptr<GameObject>>& objects,
+    const std::vector<std::string> map, const int& dx, const int& dy)
+{
+    objects.push_back(std::make_shared<Fireball>(position, 60, dx, dy));
+    objects.back()->move(Point{dx, dy}, objects, map);
+}
+
 bool Knight::collide(GameObject& object) {
     return object.collide(*this);
 }

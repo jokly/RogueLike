@@ -1,5 +1,6 @@
 #include "Fireball.hpp"
 #include "Knight.hpp"
+#include "Monster.hpp"
 
 std::shared_ptr<sf::Sprite> Fireball::staticSprite;
 
@@ -40,6 +41,8 @@ bool Fireball::collide(Knight& knight) {
 }
 
 bool Fireball::collide(Monster& monster) {
+    monster.hit(damage);
+    health = 0;
     return false;
 }
 

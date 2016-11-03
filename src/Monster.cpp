@@ -73,5 +73,6 @@ bool Monster::collide(Magician& magician) {
 
 bool Monster::collide(Fireball& fireball) {
     fireball.hit(fireball.getHealth());
+    health -= fireball.getDamage();
     return false;
 }
