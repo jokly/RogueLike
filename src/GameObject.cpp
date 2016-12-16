@@ -18,7 +18,10 @@ GameObject::GameObject(const Point& position, std::shared_ptr<sf::Sprite> sprite
 {}
 
 void GameObject::draw(sf::RenderWindow& window) {
-    sprite->setPosition(sf::Vector2f(position.x * SPRITE_SIZE, position.y * SPRITE_SIZE));
+    Config& config = Config::Instance();
+    sprite->setPosition(sf::Vector2f(position.x * config.spriteSize,
+                position.y * config.spriteSize));
+
     window.draw(*sprite);
 }
 

@@ -16,6 +16,7 @@ std::string Game::getInfoString(GameObject* gameObject) {
 }
 
 WindowState Game::startGame() {
+    Config& config = Config::Instance();
     GameState gameState = GameState::Game;
 
     auto mapVec = map.getMap();
@@ -25,15 +26,15 @@ WindowState Game::startGame() {
     auto princess = map.getPrincess();
 
     auto windowSize = window.getSize();
-    int mapWidth = mapVec[0].length() * SPRITE_SIZE;
-    int mapHeight = mapVec.size() * SPRITE_SIZE;
+    int mapWidth = mapVec[0].length() * config.spriteSize;
+    int mapHeight = mapVec.size() * config.spriteSize;
     sf::View camera;
     camera.reset(sf::FloatRect(0, 0, windowSize.x, windowSize.y));
     sf::View hud;
     hud.reset(sf::FloatRect(0, 0, windowSize.x, windowSize.y));
 
     sf::Font font;
-    font.loadFromFile("../res/font.ttf");
+    font.loadFromFile(config.fontPath);
     sf::Text healthText("", font, 16);
     healthText.setColor(sf::Color::White);
     healthText.setPosition(5, 0);
@@ -124,7 +125,7 @@ WindowState Game::startGame() {
             }
         }
 
-        int camX = playerPos.x * SPRITE_SIZE, camY = playerPos.y * SPRITE_SIZE;
+        int camX = playerPos.x * config.spriteSize, camY = playerPos.y * config.spriteSize;
         auto cameraSize = camera.getSize();
 
         if (camX - cameraSize.x / 2 < 0)
@@ -151,7 +152,8 @@ WindowState Game::startGame() {
         window.draw(healthText);
         if (gameState == GameState::Win || gameState == GameState::Lose) {
             auto bounds = endText.getLocalBounds();
-            endText.setPosition(windowSize.x / 2 - bounds.width / 2, windowSize.y / 2 - bounds.height / 2);
+            endText.setPosition(windowSize.x / 2 - bounds.width / 2,
+                    windowSize.y / 2 - bounds.height / 2);
             window.draw(endText);
         }
         
@@ -159,6 +161,5 @@ WindowState Game::startGame() {
 
         if (gameState == GameState::Win || gameState == GameState::Lose)
             sf::sleep(sf::seconds(1));
-            
     }
 }

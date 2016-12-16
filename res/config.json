@@ -1,0 +1,23 @@
+{
+    "windowName" : "MyRogueLike",
+    "windowWidth" : 800,
+    "windowHeight" : 600,
+
+    "spriteSize" : 16,
+    
+    "tileSetPath" : "../res/tile_set.png",
+    "mapPath" : "../res/map.txt",
+    "fontPath" : "../res/font.ttf",
+    
+    "objects" : 
+    {
+        "empty" : ".",
+        "wall" : "#",
+        "knight" : "K",
+        "monster" : "M",
+        "magician" : "@",
+        "princess" : "P",
+        "heal" : "+",
+        "sword" : "!"
+    }
+}

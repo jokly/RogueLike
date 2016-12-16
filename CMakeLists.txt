@@ -25,7 +25,7 @@ set(EXECUTABLE_NAME "RogueLike")
 set(SRC_FOLDER "src")
 file(GLOB SRC_LIST "${SRC_FOLDER}/*.hpp" "${SRC_FOLDER}/*.cpp")
 add_executable(${EXECUTABLE_NAME} ${SRC_LIST})
-set (CMAKE_PREFIX_PATH "/home/tikhon/workspace/RogueLike/SFML-2.4.0")
+set (CMAKE_PREFIX_PATH "/home/tikhon/workspace/cpp/RogueLike/SFML-2.4.0")
 
 
 # Detect and add SFML
